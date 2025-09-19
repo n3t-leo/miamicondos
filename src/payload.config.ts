@@ -16,6 +16,7 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import Listings from './collections/Listings'
 import { ContentBlock } from './blocks/Content'
 import { Settings } from './globals/Settings'
 
@@ -42,6 +43,7 @@ export default buildConfig({
   collections: [
     Users,
     Media,
+    Listings,
     {
       slug: 'pages',
       fields: [

@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    listings: Listing;
     pages: Page;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +89,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    listings: ListingsSelect<false> | ListingsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -218,6 +220,77 @@ export interface FolderInterface {
     totalDocs?: number;
   };
   folderType?: 'media'[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "listings".
+ */
+export interface Listing {
+  id: number;
+  listingId: string;
+  addressLine1?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postalCode?: string | null;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  location?: [number, number] | null;
+  propertyType?: string | null;
+  propertySubType?: string | null;
+  bedrooms?: number | null;
+  bathrooms?: number | null;
+  halfBaths?: number | null;
+  squareFootage?: number | null;
+  yearBuilt?: number | null;
+  listPrice?: number | null;
+  originalListPrice?: number | null;
+  pricePerSquareFoot?: number | null;
+  buildingName?: string | null;
+  unitNumber?: string | null;
+  floor?: number | null;
+  totalFloorsInBuilding?: number | null;
+  unitsInBuilding?: number | null;
+  hoaFee?: number | null;
+  hoaFrequency?: string | null;
+  listingDate?: string | null;
+  daysOnMarket?: number | null;
+  listingAgent?: {
+    id?: string | null;
+    name?: string | null;
+    email?: string | null;
+    phone?: string | null;
+  };
+  photos?:
+    | {
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  features?:
+    | {
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  appliances?:
+    | {
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  amenities?:
+    | {
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  status?: string | null;
+  lastUpdated?: string | null;
+  source?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -636,6 +709,10 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
+        relationTo: 'listings';
+        value: number | Listing;
+      } | null)
+    | ({
         relationTo: 'pages';
         value: number | Page;
       } | null)
@@ -759,6 +836,74 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "listings_select".
+ */
+export interface ListingsSelect<T extends boolean = true> {
+  listingId?: T;
+  addressLine1?: T;
+  city?: T;
+  state?: T;
+  postalCode?: T;
+  location?: T;
+  propertyType?: T;
+  propertySubType?: T;
+  bedrooms?: T;
+  bathrooms?: T;
+  halfBaths?: T;
+  squareFootage?: T;
+  yearBuilt?: T;
+  listPrice?: T;
+  originalListPrice?: T;
+  pricePerSquareFoot?: T;
+  buildingName?: T;
+  unitNumber?: T;
+  floor?: T;
+  totalFloorsInBuilding?: T;
+  unitsInBuilding?: T;
+  hoaFee?: T;
+  hoaFrequency?: T;
+  listingDate?: T;
+  daysOnMarket?: T;
+  listingAgent?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+        email?: T;
+        phone?: T;
+      };
+  photos?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        value?: T;
+        id?: T;
+      };
+  appliances?:
+    | T
+    | {
+        value?: T;
+        id?: T;
+      };
+  amenities?:
+    | T
+    | {
+        value?: T;
+        id?: T;
+      };
+  status?: T;
+  lastUpdated?: T;
+  source?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
