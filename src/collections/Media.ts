@@ -5,6 +5,11 @@ export const Media: CollectionConfig = {
   access: {
     read: () => true,
   },
+  // Enable folders for this collection (beta feature)
+  folders: true,
+  admin: {
+    useAsTitle: 'alt',
+  },
   fields: [
     {
       name: 'alt',
@@ -12,5 +17,10 @@ export const Media: CollectionConfig = {
       required: true,
     },
   ],
-  upload: true,
+  upload: {
+    mimeTypes: ['image/*'],
+    displayPreview: true,
+    adminThumbnail: 'thumbnail',
+    imageSizes: [{ name: 'thumbnail', width: 400, height: 300, position: 'centre' }],
+  },
 }
